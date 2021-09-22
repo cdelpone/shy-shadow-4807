@@ -1,12 +1,6 @@
 class PlotPlantsController < ApplicationController
   def create
-    plot_plants = PlotPlant.create!(plot_plants_params)
-  end
-
-  def destroy
-    PlotPlant.find(params[:plant_id]).destroy
-    redirect_to plots_path
-  end
+    @plot_plants = PlotPlant.create!(plot_plants_params)
 
   private
   def plot_plants_params

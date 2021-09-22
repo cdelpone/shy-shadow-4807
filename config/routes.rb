@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :plots, :plants, :plot_plants
+  resources :plots, only: [:index, :create]
+  resources :plants
+  resources :plot_plants, only: :delete
 end

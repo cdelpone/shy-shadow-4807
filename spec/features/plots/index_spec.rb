@@ -8,9 +8,12 @@ RSpec.describe 'Plot Index Page' do
     @plant1 = Plant.create!(name: "Best Plant", description: "luscious", days_to_harvest: 5)
     @plant2 = Plant.create!(name: "Second Best Plant", description: "leafy", days_to_harvest: 10)
     @plant3 = Plant.create!(name: "A good Plant", description: "tall", days_to_harvest: 10)
-    @plot1.plants << @plant1
-    @plot1.plants << @plant2
-    @plot2.plants << @plant3
+    # @plot1.plants << @plant1
+    # @plot1.plants << @plant2
+    # @plot2.plants << @plant3
+    PlotPlant.create!(plot_id: @plot1.id, plant_id: @plant1.id)
+    PlotPlant.create!(plot_id: @plot1.id, plant_id: @plant2.id)
+    PlotPlant.create!(plot_id: @plot2.id, plant_id: @plant3.id)
 
     visit plots_path
   end
@@ -22,14 +25,12 @@ RSpec.describe 'Plot Index Page' do
       expect(@plot1.plants).to eq([@plant1, @plant2])
       expect(page).to have_content(@plot2.number)
       expect(@plot2.plants).to eq([@plant3])
-      save_and_open_page
     end
 
     it 'can delete each plant' do
-      expect(page).to have_link('Delete')
-      click_on "Delete Best Plant"
+      expect(page).to have_link('Remove')
+      click_on "Remove Best Plant"
       expect(page).to have_no_content("Best Plant")
-
     end
   end
 end
